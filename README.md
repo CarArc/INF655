@@ -53,8 +53,8 @@ npm run build
    git add .
    git commit -m "INF655 Assignment 1: React JSX and components"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git remote add origin https://github.com/CarArc/INF655.git
    git push -u origin main
    ```
 
-4. Submit the GitHub repository link (e.g. `https://github.com/YOUR_USERNAME/YOUR_REPO_NAME`).
+4. Repository: **https://github.com/CarArc/INF655**
