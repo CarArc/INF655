@@ -2,10 +2,23 @@
  * Task 4: Parent and Child Components Using JSX (5 Points)
  * Requirement: Import Greeting, UserInfo, and TaskComponent; render inside a single <div> (JSX rules).
  */
-import Greeting from './components/Greeting'; // Task 1: functional component with h1, styled p, and date expression
-import UserInfo from './components/UserInfo'; // Task 2: class component with state (name, profession, lucky number)
-import TaskComponent from './components/TaskComponent'; // Task 3: displays the random task in an h3
-import './App.css'; // Layout and spacing for the app container and sections
+//**In App.jsx**:
+//Define a function handleAlert() inside the App component (or just above it) that calls alert('Your custom message here');.
+//Pass this function into UserInfo as a prop: <UserInfo handleClick={handleAlert} />.
+
+import Greeting from './components/Greeting'; // Task 1: functional component with username prop
+import Counter from './components/Counter'; // Task 2: useState counter
+import UserInfo from './components/UserInfo'; // Task 4: accepts handleClick prop
+import TaskComponent from './components/TaskComponent'; // Assignment 1: random task
+import TaskForm from './components/TaskForm'; // Task 5: controlled form
+import './App.css';
+
+// Define a function handleAlert() inside the App component (or just above it) that calls alert('Your custom message here');.
+function handleAlert() {
+  alert('Your custom message here');
+  // this alert is a string concatenation of the name, profession, and lucky number
+  // the "this" keyword is used to access the state of the component, as in "this dude's name, profession, and lucky number". 
+}
 
 // Task 3: Create an array of tasks inside the App component
 const tasks = [
@@ -27,14 +40,29 @@ function App() {
 
   // Task 4: Render Greeting, UserInfo, and TaskComponent inside a single <div>
   return (
-    <div className="app"> {/* Single root element—JSX requires one parent */}
-      <Greeting />
-      <UserInfo />
+    <div className="app">
+      {/* Task 1: Render Greeting twice with different usernames */}
+      <Greeting username="Alice" />
+      <Greeting username="Bob" />
+      {/* Task 2: Counter with useState */}
+      <Counter />
+      <UserInfo handleClick={handleAlert} />
+      {/* Task 3: List of tasks with keys */}
+      <section>
+        <h2>Tasks</h2>
+        <ul>
+          {tasks.map((task) => (
+            <li key={task}>{task}</li>
+          ))}
+        </ul>
+      </section>
       <section>
         <h2>Random Task</h2>
         {/* Task 3: Display random task inside <h3> via TaskComponent */}
-        <TaskComponent randomTask={randomTask} /> {/* Pass the chosen task as a prop so child can display it */}
+        <TaskComponent randomTask={randomTask} />
       </section>
+      {/* Task 5: Controlled form */}
+      <TaskForm />
     </div>
   );
 }

@@ -3,14 +3,23 @@ import { Component } from 'react'; // Base class so we can use state and lifecyc
 /**
  * Task 2: Create a Class Component and Use JSX (5 Points)
  * Class-based component that uses JSX and state.
+ * **In UserInfo.jsx**:
+//Update the class component to expect a handleClick prop (via this.props.handleClick).
+//Add a button below the user details, e.g. <button onClick={this.props.handleClick}>Show Alert</button>.
+//Optionally update default state values to match the example (e.g., John Doe, Developer), while keeping the overall structure.
  */
+
+
+
+
+
 class UserInfo extends Component {
   constructor(props) {
     super(props); // Must call super(props) before using this in a class component
     // Requirement: Define state inside the component to hold user details
     this.state = {
-      name: 'Jane Doe',
-      profession: 'Software Developer',
+      name: 'John Doe',
+      profession: 'Developer',
       luckyNumber: Math.floor(Math.random() * 100) + 1, // 1–100 so we always show a positive integer
     };
   }
@@ -25,6 +34,7 @@ class UserInfo extends Component {
         <p><strong>Profession:</strong> {profession}</p>
         {/* Requirement: Display a random number (e.g., "Your lucky number is 7") */}
         <p>Your lucky number is {luckyNumber}.</p>
+        <button onClick={this.props.handleClick}>Show Alert</button>
       </div>
     );
   }
