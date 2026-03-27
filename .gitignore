@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Workspaces & Text files
+*.code-workspace
+*.txt
+*.md

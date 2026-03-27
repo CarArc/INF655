@@ -15,25 +15,28 @@ import { Component } from 'react'; // Base class so we can use state and lifecyc
 
 class UserInfo extends Component {
   constructor(props) {
-    super(props); // Must call super(props) before using this in a class component
-    // Requirement: Define state inside the component to hold user details
+    super(props);
     this.state = {
       name: 'John Doe',
       profession: 'Developer',
-      luckyNumber: Math.floor(Math.random() * 100) + 1, // 1–100 so we always show a positive integer
+      luckyNumber: Math.floor(Math.random() * 100) + 1,
     };
   }
 
+  generateLuckyNumber = () => {
+    this.setState({ luckyNumber: Math.floor(Math.random() * 100) + 1 });
+  }
+
   render() {
-    const { name, profession, luckyNumber } = this.state; // Destructure so we can use values directly in JSX
-    // Requirement: Use JSX to return a <div> containing user's name and profession
+    const { name, profession, luckyNumber } = this.state;
     return (
       <div>
         <h2>User Information</h2>
         <p><strong>Name:</strong> {name}</p>
         <p><strong>Profession:</strong> {profession}</p>
-        {/* Requirement: Display a random number (e.g., "Your lucky number is 7") */}
-        <p>Your lucky number is {luckyNumber}.</p>
+        <p>Your lucky number is: {luckyNumber}</p>
+        <button onClick={this.generateLuckyNumber}>Generate New Lucky Number</button>
+        <br /><br />
         <button onClick={this.props.handleClick}>Show Alert</button>
       </div>
     );
