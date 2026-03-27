@@ -71,6 +71,11 @@ input {
   box-shadow: 0 0 15px rgba(100, 108, 255, 0.2);
 }
 
+.app section h2 {
+  text-align: center;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 h1 {
   text-align: center;
   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);

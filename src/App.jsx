@@ -38,17 +38,17 @@ function App() {
       <UserInfo handleClick={handleAlert} />
       
       <section>
+        <h2>➕ Add a Task</h2>
+        <TaskForm onAdd={handleAddTask} />
+      </section>
+
+      <section>
         <h2>Task List (Filter & Sort)</h2>
         <TaskComponent 
           tasks={tasks} 
           onDelete={handleDeleteTask} 
           randomTask={randomTask ? randomTask.name : ''} 
         />
-      </section>
-      
-      <section>
-        <h2>Add a Task</h2>
-        <TaskForm onAdd={handleAddTask} />
       </section>
     </div>
   );
