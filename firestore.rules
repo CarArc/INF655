@@ -1,0 +1,28 @@
+rules_version = '2';
+
+// Paste these rules into Firebase Console → Firestore Database → Rules → Publish.
+// This app stores tasks in `tasks` with field `userId` matching Firebase Auth uid.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /tasks/{taskId} {
+      // Read (including queries/listeners): only the owner’s documents
+      allow read: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+
+      // Create: client must set userId to the signed-in user
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+
+      // Delete: only if the document belongs to the user
+      allow delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+
+      // Update (optional, if you add edit later): keep ownership and userId stable
+      allow update: if request.auth != null
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}

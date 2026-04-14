@@ -1,56 +1,32 @@
-import { useState } from 'react';
-import Greeting from './components/Greeting';
-import Counter from './components/Counter';
-import UserInfo from './components/UserInfo';
-import TaskComponent from './components/TaskComponent';
-import TaskForm from './components/TaskForm';
+import { Route, Routes } from 'react-router-dom';
+import { auth } from './firebase';
+import FirebaseConfigMissing from './components/FirebaseConfigMissing';
+import ProtectedRoute from './components/ProtectedRoute';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import TaskDashboard from './pages/TaskDashboard';
 import './App.css';
 
-function handleAlert() {
-  alert('Your custom message here');
-}
-
-const initialTasks = [
-  { id: 1, name: 'Complete the React assignment', description: 'Finish midterm' },
-  { id: 2, name: 'Review JSX syntax', description: 'Read the docs' },
-  { id: 3, name: 'Practice component composition', description: 'Build components' },
-  { id: 4, name: 'Study React state and props', description: 'Review state' },
-  { id: 5, name: 'Build a small React project', description: 'Like this midterm' },
-];
-
 function App() {
-  const [tasks, setTasks] = useState(initialTasks);
-  const randomTask = tasks.length > 0 ? tasks[Math.floor(Math.random() * tasks.length)] : null;
-
-  const handleAddTask = (newTask) => {
-    setTasks([...tasks, { id: Date.now(), ...newTask }]);
-  };
-
-  const handleDeleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
-  };
+  if (!auth) {
+    return <FirebaseConfigMissing />;
+  }
 
   return (
-    <div className="app">
-      <Greeting username="Alice" />
-      <Greeting username="Bob" />
-      <Counter />
-      <UserInfo handleClick={handleAlert} />
-      
-      <section>
-        <h2>➕ Add a Task</h2>
-        <TaskForm onAdd={handleAddTask} />
-      </section>
-
-      <section>
-        <h2>Task List (Filter & Sort)</h2>
-        <TaskComponent 
-          tasks={tasks} 
-          onDelete={handleDeleteTask} 
-          randomTask={randomTask ? randomTask.name : ''} 
-        />
-      </section>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route
+        path="/tasks"
+        element={
+          <ProtectedRoute>
+            <TaskDashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 
